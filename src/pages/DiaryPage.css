@@ -1,0 +1,50 @@
+/* DiaryPage.css */
+.diary-page h1 {
+  font-size: 2.5rem;
+  color: #2d3748;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+.diary-content {
+  display: flex;
+  flex-direction: row-reverse; /* Reverse the order of elements */
+  gap: 2rem;
+}
+
+.calendar-container {
+  flex: 1;
+}
+
+.entries-container {
+  flex: 2;
+}
+
+/* React-Calendar Overrides */
+.react-calendar {
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  background: #f9f9f9;
+}
+
+.react-calendar__navigation button {
+    color: #333;
+    font-weight: bold;
+}
+
+.react-calendar__month-view__days__day {
+    color: red;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: #ffcccb;
+}
+
+.react-calendar__tile--active {
+  background: #6a82fb !important;
+  color: white !important;
+}

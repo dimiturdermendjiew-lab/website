@@ -1,0 +1,95 @@
+/* HomePage.css */
+
+.home-page .hero-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #5a67d8; /* Indigo background */
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 20px rgba(90, 103, 216, 0.3);
+}
+
+.home-page .hero-section h1 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.home-page .hero-section .subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.home-page .cta-button {
+  background-color: #ffffff;
+  color: #5a67d8;
+  padding: 12px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.home-page .cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.home-page .features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.home-page .feature-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.home-page .feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.home-page .feature-card h3 {
+  font-size: 1.5rem;
+  color: #3d5afe;
+  margin-bottom: 1rem;
+}
+
+.home-page .feature-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.home-page .inspirational-quote {
+  text-align: center;
+  padding: 2rem;
+  background-color: #e2e8f0; /* Light gray background */
+  border-radius: 8px;
+  color: #4a5568; /* Slate gray text */
+}
+
+.home-page .inspirational-quote p {
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.home-page .inspirational-quote cite {
+  font-weight: bold;
+}
+

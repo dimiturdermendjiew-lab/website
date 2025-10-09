@@ -1,0 +1,105 @@
+/* DiaryList.css */
+.diary-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background-color: #f7fafc;
+  border: 2px dashed #e2e8f0;
+  border-radius: 12px;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: #718096;
+}
+
+.diary-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden; /* To keep image corners rounded */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.diary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+  padding: 1rem 1.5rem;
+  background-color: #f7fafc;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-date {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.delete-btn, .share-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.delete-btn:hover, .share-btn:hover {
+  opacity: 1;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #2d3748;
+  white-space: pre-wrap; /* Preserves line breaks */
+}
+
+.card-attachment {
+  margin-top: 1.5rem;
+}
+
+.attached-image {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.attached-file-link {
+  display: inline-block;
+  background-color: #e2e8f0;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #2d3748;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.attached-file-link:hover {
+    background-color: #cbd5e0;
+}
