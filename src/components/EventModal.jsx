@@ -1,64 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './EventModal.css';
 
-const categories = {
-  university: { name: 'Университет', color: '#3b5998' },
-  school: { name: 'Училище', color: '#8b9dc3' },
-  extracurricular: { name: 'Извънкласна дейност', color: '#f7f7f7', textColor: '#333' },
-  sports: { name: 'Спортна дейност', color: '#ff9f40' },
-  love: { name: 'Любовен живот', color: '#d9363e' },
-  work: { name: 'Работа', color: '#55c57a' },
-  personal: { name: 'Лични задачи', color: '#ffeb3b', textColor: '#333' },
-  health: { name: 'Здраве', color: '#ff7f7f' },
+const EventModal = ({ isOpen, onClose, onAddEvent }) => {
+    const [title, setTitle] = useState('');
+    const [category, setCategory] = useState('lecture'); // Default category
+    const [startTime, setStartTime] = useState('09:00');
+    const [endTime, setEndTime] = useState('10:30');
+
+    if (!isOpen) return null;
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onAddEvent({ title, category, startTime, endTime });
+        setTitle(''); // Clear input after adding
+    };
+
+    return (
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="modal-content event-modal" onClick={e => e.stopPropagation()}>
+                <h2>Добави събитие</h2>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="Име на събитието"
+                        required
+                    />
+                    <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                        <option value="lecture">Лекция</option>
+                        <option value="exercise">Упражнение</option>
+                        <option value="exam">Изпит</option>
+                        <option value="task">Задача</option>
+                        <option value="homework">Домашна работа</option> {/* Added homework */}
+                        <option value="meeting">Среща</option>
+                    </select>
+                    <div className="time-inputs">
+                        <input type="time" value={startTime} onChange={e => setStartTime(e.target.value)} />
+                        <span>-</span>
+                        <input type="time" value={endTime} onChange={e => setEndTime(e.target.value)} />
+                    </div>
+                    <button type="submit" className="add-event-btn">Добави</button>
+                </form>
+                <button onClick={onClose} className="close-btn">Затвори</button>
+            </div>
+        </div>
+    );
 };
-
-function EventModal({ isOpen, onClose, onSave, onDelete, event }) {
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState(Object.keys(categories)[0]);
-
-  useEffect(() => {
-      if (event) {
-        setTitle(event.title || '');
-        setCategory(event.category || Object.keys(categories)[0]);
-      }
-  }, [event]);
-
-  if (!isOpen) return null;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!title) return;
-    onSave({ title, category });
-  };
-
-  return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <form onSubmit={handleSubmit}>
-          <h2>{event && event.id ? 'Редактирай събитие' : 'Добави събитие'}</h2>
-          <input
-            type="text"
-            placeholder="Име на събитието"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-          <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            {Object.keys(categories).map(key => (
-              <option key={key} value={key}>{categories[key].name}</option>
-            ))}
-          </select>
-          <div className="modal-actions">
-            <button type="submit" className="save-btn">Запази</button>
-            {event && event.id && (
-                <button type="button" onClick={onDelete} className="delete-btn">Изтрий</button>
-            )}
-            <button type="button" onClick={onClose} className="cancel-btn">Отказ</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-}
 
 export default EventModal;

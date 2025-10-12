@@ -1,158 +1,140 @@
-/* DiaryForm.css */
 .diary-form-container {
-  position: relative;
+    position: relative;
 }
 
 .diary-form {
-  background: #f9f9f9;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem; /* Adjusted margin */
-  transition: all 0.3s ease;
-}
-
-.diary-form:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .textarea-container {
-  position: relative;
+    position: relative;
 }
 
 .diary-form textarea {
-  width: 100%;
-  padding: 1.5rem;
-  padding-right: 4rem; /* Space for the emoji button */
-  border: 2px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  line-height: 1.7;
-  resize: vertical;
-  margin-bottom: 1.5rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  background: #fff;
-  color: #333;
+    width: 100%;
+    min-height: 140px;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #E0E0E0;
+    font-size: 1.1em; /* Малко по-голям размер за четливост */
+    line-height: 1.6;
+    font-family: 'Times New Roman', Times, serif; /* Промяна на шрифта */
+    color: #000000; /* Черен цвят на текста */
+    resize: vertical;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
 }
 
 .diary-form textarea:focus {
-  outline: none;
-  border-color: #6a82fb;
-  box-shadow: 0 0 0 3px rgba(106, 130, 251, 0.3);
+    outline: none;
+    border-color: #4A90E2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2), 0 4px 8px rgba(0,0,0,0.06);
+}
+
+.diary-form textarea::placeholder {
+    color: #aaa;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* Запазваме стандартния шрифт за плейсхолдъра */
 }
 
 .emoji-button {
-  position: absolute;
-  bottom: 25px;
-  right: 20px;
-  background: transparent;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.6;
+    transition: opacity 0.2s;
 }
 
 .emoji-button:hover {
-  opacity: 1;
+    opacity: 1;
 }
 
 .emoji-picker-container {
-  position: absolute;
-  z-index: 10;
-  right: 0;
-  top: 105px; 
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 10;
 }
 
 .image-preview-container {
     position: relative;
-    display: inline-block;
-    margin-bottom: 1rem;
+    margin-top: 10px;
+    max-width: 200px;
 }
 
 .image-preview {
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 10px;
-    border: 2px solid #ddd;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ddd;
 }
 
 .remove-image-button {
     position: absolute;
-    top: -10px;
-    right: -10px;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    top: 5px;
+    right: 5px;
+    background: transparent;
+    border: none;
+    font-size: 1.8em;
     cursor: pointer;
-    font-size: 1.2rem;
+    padding: 0;
     line-height: 1;
-    font-weight: bold;
-    color: #333;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
+.remove-image-button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
 
 .form-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .attachment-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 10px;
 }
 
 .icon-button {
-    background: linear-gradient(145deg, #e6e6e6, #ffffff);
-    color: #555;
-    padding: 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    font-size: 1.5rem;
+    background: none;
     border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 1.8em;
+    cursor: pointer;
+    padding: 0;
+    color: #555;
+    transition: color 0.2s;
 }
 
 .icon-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-  background: linear-gradient(145deg, #f0f0f0, #e6e6e6);
-}
-
-.file-name {
-  font-size: 1rem;
-  color: #666;
-  margin-left: 1rem;
-  font-style: italic;
+    color: #000;
 }
 
 .diary-form button[type="submit"] {
-  background: linear-gradient(145deg, #6a82fb, #3b5998);
-  color: white;
-  padding: 12px 25px;
-  border-radius: 10px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(59, 89, 152, 0.3);
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
 .diary-form button[type="submit"]:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(59, 89, 152, 0.4);
-  background: linear-gradient(145deg, #7a92ff, #4c69a5);
+    background-color: #218838;
+    transform: translateY(-1px);
 }

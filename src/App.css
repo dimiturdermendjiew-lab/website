@@ -26,16 +26,21 @@ nav {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav ul {
   list-style: none;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
 }
 
-nav ul li a {
+nav ul li a,
+.nav-button {
   text-decoration: none;
   color: #5a67d8; /* A nice indigo */
   font-weight: bold;
@@ -43,12 +48,31 @@ nav ul li a {
   padding: 0.5rem 1rem;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
 }
 
-nav ul li a:hover, nav ul li a.active {
+.nav-button {
+    border: none;
+    background: none;
+    font-family: inherit;
+}
+
+.logout-button {
+    color: #e53e3e; /* Red for logout */
+}
+
+nav ul li a:hover, 
+nav ul li a.active,
+.nav-button:hover {
   background-color: #5a67d8;
   color: #ffffff;
 }
+
+.logout-button:hover {
+    background-color: #e53e3e;
+    color: #ffffff;
+}
+
 
 /* Page Content */
 hr {

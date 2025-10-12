@@ -1,50 +1,67 @@
-/* DiaryPage.css */
-.diary-page h1 {
-  font-size: 2.5rem;
-  color: #2d3748;
-  text-align: center;
-  margin-bottom: 2rem;
-  font-weight: bold;
+.diary-page {
+    padding: 20px;
+    position: relative;
+}
+
+.home-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 2em;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+.home-button:hover {
+    color: #555;
 }
 
 .diary-content {
-  display: flex;
-  flex-direction: row-reverse; /* Reverse the order of elements */
-  gap: 2rem;
+    display: flex;
+    flex-direction: row-reverse; /* Връща календара вдясно */
+    gap: 30px;
+    margin-top: 20px;
 }
 
 .calendar-container {
-  flex: 1;
+    flex-basis: 450px;
+    flex-shrink: 0;
 }
+
+/* Персонализирани стилове за react-calendar */
+.react-calendar {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Стилизиране на числата в календара */
+.react-calendar__tile,
+.react-calendar__month-view__days__day {
+    color: #000; /* Черен цвят за всички числа */
+}
+
+/* Стил за дните с добавени записки */
+.has-entry {
+    background-color: #d4edda !important; 
+    color: #155724 !important;
+    border-radius: 50%;
+}
+
 
 .entries-container {
-  flex: 2;
+    flex-grow: 1;
 }
 
-/* React-Calendar Overrides */
-.react-calendar {
-  width: 100%;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  background: #f9f9f9;
-}
-
-.react-calendar__navigation button {
-    color: #333;
+.selected-date-display {
+    font-size: 1.2em;
     font-weight: bold;
-}
-
-.react-calendar__month-view__days__day {
-    color: red;
-}
-
-.react-calendar__month-view__days__day--neighboringMonth {
-    color: #ffcccb;
-}
-
-.react-calendar__tile--active {
-  background: #6a82fb !important;
-  color: white !important;
+    color: #333;
+    margin-bottom: 15px;
 }

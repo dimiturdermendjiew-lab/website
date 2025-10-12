@@ -1,183 +1,147 @@
-import React, { useState, useCallback } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Calendar, momentLocalizer, Views } from 'react-big-calendar'; // Import Views
 import moment from 'moment';
+import 'moment/locale/bg';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarPage.css';
 import EventModal from '../components/EventModal';
+import ViewEventModal from '../components/ViewEventModal';
 
 moment.locale('bg');
 const localizer = momentLocalizer(moment);
 
-const categories = {
-  university: { name: 'Университет', color: '#3b5998' },
-  school: { name: 'Училище', color: '#8b9dc3' },
-  extracurricular: { name: 'Извънкласна дейност', color: '#f7f7f7', textColor: '#333' },
-  sports: { name: 'Спортна дейност', color: '#ff9f40' },
-  love: { name: 'Любовен живот', color: '#d9363e' },
-  work: { name: 'Работа', color: '#55c57a' },
-  personal: { name: 'Лични задачи', color: '#ffeb3b', textColor: '#333' },
-  health: { name: 'Здраве', color: '#ff7f7f' },
+const categoryColors = {
+    lecture: '#3174ad',
+    exercise: '#4caf50',
+    exam: '#f44336',
+    task: '#ff9800',
+    homework: '#795548',
+    meeting: '#9c27b0',
 };
-
-// Custom component to render the event with its category
-function CustomEvent({ event }) {
-    const categoryName = categories[event.category]?.name || 'Без категория';
-    return (
-      <div>
-        <strong>{event.title}</strong>
-        <div style={{ fontSize: '0.8em', opacity: 0.9, marginTop: '2px' }}>{categoryName}</div>
-      </div>
-    );
-}
-
-// Wrapper for date cells to apply custom styles to weekends
-const DateCellWrapper = ({ children, value }) => {
-    const day = value.getDay();
-    const isWeekend = day === 0 || day === 6; // 0 for Sunday, 6 for Saturday
-
-    // Clone the child and add a new class if it's a weekend
-    return React.cloneElement(React.Children.only(children), {
-        className: `${children.props.className} ${isWeekend ? 'weekend-cell' : ''}`,
-    });
-};
-
-const sampleEvents = [
-  {
-    id: 1,
-    title: 'Изпит по Уеб Технологии',
-    start: new Date(2024, 5, 28, 10, 0),
-    end: new Date(2024, 5, 28, 12, 0),
-    allDay: false,
-    category: 'university',
-  },
-];
 
 function CalendarPage() {
-  const [events, setEvents] = useState(sampleEvents);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [view, setView] = useState('month');
-  const [date, setDate] = useState(new Date());
+    const navigate = useNavigate();
+    const [events, setEvents] = useState(() => {
+        const savedEvents = localStorage.getItem('calendarEvents');
+        return savedEvents ? JSON.parse(savedEvents).map(event => ({
+            ...event,
+            start: new Date(event.start),
+            end: new Date(event.end)
+        })) : [];
+    });
 
-  const handleSelectSlot = (slotInfo) => {
-    setModalOpen(true);
-    setSelectedEvent({ start: slotInfo.start, end: slotInfo.end });
-  };
-  
-  const handleSelectEvent = (event) => {
-    setModalOpen(true);
-    setSelectedEvent(event);
-  };
+    const [addModalIsOpen, setAddModalIsOpen] = useState(false);
+    const [viewModalIsOpen, setViewModalIsOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [view, setView] = useState(Views.MONTH); // Add view state
 
-  const handleSaveEvent = ({ title, category }) => {
-    if (title && selectedEvent) {
-      if (selectedEvent.id) {
-        setEvents(prevEvents => prevEvents.map(ev => 
-          ev.id === selectedEvent.id ? { ...ev, title, category } : ev
-        ));
-      } else {
-        const newEvent = {
-            id: new Date().getTime(), 
-            title,
-            start: selectedEvent.start,
-            end: selectedEvent.end,
-            allDay: !selectedEvent.start.getHours(),
-            category,
-        };
-        setEvents(prevEvents => [...prevEvents, newEvent]);
-      }
-    }
-    setModalOpen(false);
-    setSelectedEvent(null);
-  };
-  
-  const handleDeleteEvent = () => {
-      if (selectedEvent && selectedEvent.id) {
-          if (window.confirm('Сигурни ли сте, че искате да изтриете това събитие?')) {
-              setEvents(prevEvents => prevEvents.filter(ev => ev.id !== selectedEvent.id));
-              setModalOpen(false);
-              setSelectedEvent(null);
-          }
-      }
-  }
+    useEffect(() => {
+        localStorage.setItem('calendarEvents', JSON.stringify(events));
+    }, [events]);
 
-  const onNavigate = useCallback((newDate) => setDate(newDate), [setDate]);
-  const onView = useCallback((newView) => setView(newView), [setView]);
-
-  const eventStyleGetter = (event) => {
-    const category = categories[event.category] || {};
-    return {
-      style: {
-        backgroundColor: category.color,
-        borderRadius: '5px',
-        opacity: 0.9,
-        color: category.textColor || 'white',
-        border: '0px',
-        display: 'block'
-      }
+    const handleSelectSlot = ({ start }) => {
+        setSelectedDate(start);
+        setAddModalIsOpen(true);
     };
-  };
 
-  const components = {
-    event: CustomEvent,
-    dateCellWrapper: DateCellWrapper, // Use the custom wrapper for date cells
-    toolbar: (toolbar) => (
-      <div className="rbc-toolbar">
-        <div className="rbc-btn-group">
-          <button type="button" onClick={() => toolbar.onNavigate('PREV')}>&lt;</button>
-          <button type="button" onClick={() => toolbar.onNavigate('TODAY')}>Днес</button>
-          <button type="button" onClick={() => toolbar.onNavigate('NEXT')}>&gt;</button>
-        </div>
-        <span className="rbc-toolbar-label">{moment(toolbar.date).format('MMMM YYYY')}</span>
-        <div className="rbc-btn-group">
-            <button type="button" className={toolbar.view === 'month' ? 'rbc-active' : ''} onClick={() => toolbar.onView('month')}>Месец</button>
-            <button type="button" className={toolbar.view === 'week' ? 'rbc-active' : ''} onClick={() => toolbar.onView('week')}>Седмица</button>
-            <button type="button" className={toolbar.view === 'day' ? 'rbc-active' : ''} onClick={() => toolbar.onView('day')}>Ден</button>
-        </div>
-      </div>
-    ),
-  };
+    const handleSelectEvent = (event) => {
+        setSelectedEvent(event);
+        setViewModalIsOpen(true);
+    }
 
-  return (
-    <div className="page-content calendar-page">
-      <header className="calendar-header">
-        <h1>Календар</h1>
-        <p>Планирайте и организирайте вашите събития и задачи.</p>
-      </header>
-      <div className="calendar-container">
-        <Calendar
-          localizer={localizer}
-          events={events}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 'calc(100vh - 250px)' }}
-          components={components}
-          selectable={true}
-          onSelectSlot={handleSelectSlot}
-          onSelectEvent={handleSelectEvent}
-          eventPropGetter={eventStyleGetter}
-          view={view}
-          date={date}
-          onView={onView}
-          onNavigate={onNavigate}
-          messages={{
-            allDay: 'Цял ден', previous: 'Назад', next: 'Напред', today: 'Днес',
-            month: 'Месец', week: 'Седмица', day: 'Ден', agenda: 'Дневен ред',
-            date: 'Дата', time: 'Час', event: 'Събитие',
-            noEventsInRange: 'Няма събития в този период.',
-            showMore: total => `+${total} още`,
-          }}
-        />
-      </div>
-      <EventModal 
-        isOpen={modalOpen} 
-        onClose={() => { setModalOpen(false); setSelectedEvent(null); }}
-        onSave={handleSaveEvent}
-        onDelete={handleDeleteEvent}
-        event={selectedEvent}
-      />
-    </div>
-  );
+    const handleAddEvent = ({ title, category, startTime, endTime }) => {
+        if (title && selectedDate) {
+            const startDateTime = moment(selectedDate).set({
+                hour: startTime.split(':')[0],
+                minute: startTime.split(':')[1]
+            }).toDate();
+
+            const endDateTime = moment(selectedDate).set({
+                hour: endTime.split(':')[0],
+                minute: endTime.split(':')[1]
+            }).toDate();
+
+            const newEvent = { 
+                id: new Date().getTime(),
+                title,
+                start: startDateTime,
+                end: endDateTime,
+                category
+            };
+            setEvents([...events, newEvent]);
+        }
+        setAddModalIsOpen(false);
+    };
+
+    const handleDeleteEvent = (eventToDelete) => {
+        setEvents(events.filter(event => event.id !== eventToDelete.id));
+        setViewModalIsOpen(false);
+    };
+
+    const eventStyleGetter = (event) => {
+        const backgroundColor = categoryColors[event.category] || '#8e9eab';
+        const style = {
+            backgroundColor,
+            borderRadius: '5px',
+            opacity: 0.8,
+            color: 'white',
+            border: '0px',
+            display: 'block'
+        };
+        return {
+            style: style
+        };
+    };
+
+    const messages = {
+        allDay: 'Цял ден',
+        previous: 'Назад',
+        next: 'Напред',
+        today: 'Днес',
+        month: 'Месец',
+        week: 'Седмица',
+        day: 'Ден',
+        agenda: 'Дневен ред',
+        date: 'Дата',
+        time: 'Час',
+        event: 'Събитие',
+        showMore: total => `+${total} още`,
+    };
+
+    return (
+        <div className="calendar-container-page">
+            <button className="home-button" onClick={() => navigate('/')}>🏠</button>
+            <h1 className="calendar-title">Твоят график</h1>
+            <Calendar
+                localizer={localizer}
+                events={events}
+                startAccessor="start"
+                endAccessor="end"
+                style={{ height: 600 }}
+                selectable
+                onSelectSlot={handleSelectSlot}
+                onSelectEvent={handleSelectEvent}
+                eventPropGetter={eventStyleGetter}
+                messages={messages}
+                culture='bg'
+                view={view} // Control the current view
+                onView={(view) => setView(view)} // Handle view changes
+            />
+            <EventModal
+                isOpen={addModalIsOpen}
+                onClose={() => setAddModalIsOpen(false)}
+                onAddEvent={handleAddEvent}
+            />
+            <ViewEventModal 
+                isOpen={viewModalIsOpen}
+                onClose={() => setViewModalIsOpen(false)}
+                event={selectedEvent}
+                onDelete={handleDeleteEvent}
+            />
+        </div>
+    );
 }
 
 export default CalendarPage;

@@ -1,0 +1,79 @@
+.mood-tracker-page {
+    text-align: center;
+    padding: 20px;
+}
+
+.mood-tracker-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.mood-selection {
+    margin: 30px 0;
+}
+
+.mood-emoji-btn {
+    font-size: 3em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin: 0 15px;
+}
+
+.mood-emoji-btn:hover:not(:disabled) {
+    transform: scale(1.2);
+}
+
+.mood-emoji-btn.selected {
+    border: 3px solid #4CAF50;
+    border-radius: 50%;
+}
+
+.mood-emoji-btn.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.confirmation-message {
+    color: #4CAF50;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.monthly-summary {
+    margin-top: 40px;
+}
+
+.happiness-bar-container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.happiness-bar {
+    height: 30px;
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px 0 0 25px;
+    transition: width 0.5s ease-in-out;
+}
+
+.history-section {
+    margin-top: 30px;
+}
+
+.history-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #337ab7;
+    color: white;
+    border: none;
+}

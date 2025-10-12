@@ -1,95 +1,122 @@
-/* HomePage.css */
-
-.home-page .hero-section {
-  text-align: center;
-  padding: 4rem 2rem;
-  background-color: #5a67d8; /* Indigo background */
-  color: white;
-  border-radius: 12px;
-  margin-bottom: 3rem;
-  box-shadow: 0 10px 20px rgba(90, 103, 216, 0.3);
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-.home-page .hero-section h1 {
-  font-size: 2.8rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: white;
+.home-page {
+    text-align: center;
+    background-color: #f9f9f9;
 }
 
-.home-page .hero-section .subtitle {
-  font-size: 1.3rem;
-  margin-bottom: 2rem;
-  opacity: 0.9;
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 80px 20px;
+    border-radius: 0 0 30px 30px;
 }
 
-.home-page .cta-button {
-  background-color: #ffffff;
-  color: #5a67d8;
-  padding: 12px 30px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.1rem;
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: inline-block;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white;
 }
 
-.home-page .cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+.hero-title span {
+    display: block;
+    font-size: 2.2rem;
+    color: white;
 }
 
-.home-page .features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+.hero-subtitle {
+    font-family: 'Lora', serif;
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    font-style: italic;
 }
 
-.home-page .feature-card {
-  background-color: #ffffff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s, box-shadow 0.3s;
-  text-decoration: none;
-  color: inherit;
-  display: block;
+.hero-button {
+    background-color: white;
+    color: #667eea;
+    border: none;
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.home-page .feature-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+.hero-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.home-page .feature-card h3 {
-  font-size: 1.5rem;
-  color: #3d5afe;
-  margin-bottom: 1rem;
+/* Features Section */
+.features-section {
+    padding: 60px 20px;
 }
 
-.home-page .feature-card p {
-  font-size: 1rem;
-  line-height: 1.6;
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
-.home-page .inspirational-quote {
-  text-align: center;
-  padding: 2rem;
-  background-color: #e2e8f0; /* Light gray background */
-  border-radius: 8px;
-  color: #4a5568; /* Slate gray text */
+.feature-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.home-page .inspirational-quote p {
-  font-style: italic;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
-.home-page .inspirational-quote cite {
-  font-weight: bold;
+.feature-card .emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 15px;
 }
 
+.feature-card h2 {
+    margin-top: 0;
+    font-size: 1.6rem;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Quote Section */
+.quote-section {
+    background-color: #f0f0f0;
+    padding: 50px 20px;
+    margin-top: 40px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.quote-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto 15px auto;
+}
+
+.quote-author {
+    font-size: 1.1rem;
+    color: #777;
+    font-weight: bold;
+}

@@ -1,21 +1,17 @@
 import React from 'react';
-import './DiaryList.css'; // Ще създадем този файл за стилове
+import './DiaryList.css';
 
 function DiaryList({ entries, deleteEntry }) {
 
   const handleShare = async (entry) => {
     if (navigator.share) {
       try {
-        let fullText = entry.text;
-        if (entry.file) {
-          // Note: Web Share API can't directly share data URLs.
-          // We are sharing the text and mentioning the attachment.
-          fullText += `\n\n(Прикачен файл: ${entry.file.name})`;
-        }
+        let shareText = entry.text;
 
         await navigator.share({
           title: `Запис от дневника - ${new Date(entry.date).toLocaleDateString('bg-BG')}`,
-          text: fullText,
+          text: shareText,
+          url: window.location.href
         });
       } catch (error) {
         console.error('Error sharing:', error);
@@ -29,32 +25,22 @@ function DiaryList({ entries, deleteEntry }) {
     <div className="diary-list">
       {entries.length === 0 ? (
         <div className="empty-state">
-          <h3>Все още нямате записи</h3>
-          <p>Започнете, като напишете първия си запис в дневника.</p>
+          <h3>Няма записи за тази дата</h3>
+          <p>Можете да добавите нов запис от формата по-горе или да изберете друга дата от календара.</p>
         </div>
       ) : (
-        entries.map((entry, index) => (
-          <div key={index} className="diary-card">
+        entries.map((entry) => (
+          <div key={entry.id} className="diary-card">
             <div className="card-header">
               <span className="card-date">{new Date(entry.date).toLocaleString('bg-BG', { dateStyle: 'long', timeStyle: 'short' })}</span>
               <div className="card-actions">
-                <button onClick={() => handleShare(entry)} className="share-btn">✈️</button>
-                <button onClick={() => deleteEntry(index)} className="delete-btn">🗑️</button>
+                <button onClick={() => handleShare(entry)} className="share-btn" title="Сподели">✈️</button>
+                <button onClick={() => deleteEntry(entry)} className="delete-btn" title="Изтрий">🗑️</button>
               </div>
             </div>
             <div className="card-body">
-                <p className="card-text">{entry.text}</p>
-                {entry.file && (
-                <div className="card-attachment">
-                    {entry.file.type.startsWith('image/') ? (
-                    <img src={entry.file.dataUrl} alt={entry.file.name} className="attached-image" />
-                    ) : (
-                    <a href={entry.file.dataUrl} download={entry.file.name} className="attached-file-link">
-                        📎 {entry.file.name}
-                    </a>
-                    )}
-                </div>
-                )}
+                <p className="card-text"><pre>{entry.text}</pre></p>
+                {entry.fileDataUrl && <img src={entry.fileDataUrl} alt="Attached file" className="attached-image" />}
             </div>
           </div>
         ))
