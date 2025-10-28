@@ -1,3 +1,5 @@
+/* src/pages/DiaryPage.css */
+
 .diary-page {
     padding: 20px;
     position: relative;
@@ -39,6 +41,19 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     font-family: 'Arial', sans-serif;
+}
+
+/* Навигация (стрелки и име на месец/година) */
+.react-calendar__navigation button,
+.react-calendar__navigation__label {
+    color: #000;
+    font-weight: bold;
+}
+
+/* Дни от седмицата (Пон, Вто...) */
+.react-calendar__month-view__weekdays__weekday abbr {
+    color: #000;
+    text-decoration: none; /* Премахва долната черта */
 }
 
 /* Стилизиране на числата в календара */
